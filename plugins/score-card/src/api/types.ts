@@ -46,12 +46,16 @@ export interface EntityScoreArea {
 export interface EntityScoreEntry {
   id: number;
   title: string;
+  titleLabel?: string;
+  titleLabelColor?: string;
   isOptional: boolean;
   scorePercent: number;
   scoreLabel?: string;
   scoreSuccess: ScoreSuccessEnum;
   scoreHints: string | string[];
   details: string;
+  extraDetails?: string;
+  extraDetailsColor?: string;
 }
 
 export interface EntityScoreExtended extends EntityScore {

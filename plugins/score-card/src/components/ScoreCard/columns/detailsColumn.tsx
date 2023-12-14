@@ -17,6 +17,7 @@
 import { MarkdownContent, TableColumn } from '@backstage/core-components';
 import React from 'react';
 import { EntityScoreTableEntry } from '../helpers/getScoreTableEntries';
+import { nameToContrastedColorConverter } from '../../../helpers/nameToContrastedColorConverter';
 
 export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
   title: 'Details',
@@ -28,6 +29,20 @@ export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
     return (
       <div>
         <MarkdownContent content={entityScoreEntry.details} />
+        {
+          entityScoreEntry.extraDetails
+            ? <div style={{
+              marginTop: '10px',
+              padding: '1px 8px',
+              color: nameToContrastedColorConverter(entityScoreEntry.extraDetailsColor ?? entityScoreEntry.scoreSuccess).foreground,
+              backgroundColor: nameToContrastedColorConverter(entityScoreEntry.extraDetailsColor ?? entityScoreEntry.scoreSuccess).background,
+              fontStyle: 'italic'
+            }}>
+              <MarkdownContent content={entityScoreEntry.extraDetails} />
+            </div>
+            : null
+
+        }
         {hints ? <em>hints: {hints}</em> : null}
       </div>
     );

@@ -19,6 +19,7 @@ import { Link } from '@material-ui/core';
 import React from 'react';
 import { EntityScoreTableEntry } from '../helpers/getScoreTableEntries';
 import { getWikiUrl } from '../helpers/getWikiUrl';
+import { nameToContrastedColorConverter } from '../../../helpers/nameToContrastedColorConverter';
 
 export function titleColumn(
   wikiLinkTemplate: string,
@@ -30,17 +31,36 @@ export function titleColumn(
     width: '1%',
     render: entityScoreEntry => {
       const wikiUrl = getWikiUrl(wikiLinkTemplate, entityScoreEntry);
-      return (<span>
+      const title = (
+        entityScoreEntry.titleLabel ? 
+          <>
+            <span style={{ 
+              fontSize: '12px',
+              borderRadius: '4px', 
+              padding: '0px 4px',
+              display: 'inline-block',
+              marginBottom: '4px',
+              color: nameToContrastedColorConverter(entityScoreEntry.titleLabelColor).foreground,
+              backgroundColor: nameToContrastedColorConverter(entityScoreEntry.titleLabelColor).background
+            }}>
+                {entityScoreEntry.titleLabel} 
+            </span><br/>
+            {entityScoreEntry.title}
+          </>
+          : <>{entityScoreEntry.title}</>
+      );
+
+      return (<span style={{ lineHeight: '20px' }}>
           {wikiUrl ? (
           <Link
             href={wikiUrl}
             target="_blank"
             data-id={entityScoreEntry.id}
             >
-            {entityScoreEntry.title}
+            {title}
           </Link>
         ) : (
-          <>{entityScoreEntry.title}</>
+          <>{title}</>
         )}
           {entityScoreEntry.isOptional ? ' (Optional)' : null}
         </span>

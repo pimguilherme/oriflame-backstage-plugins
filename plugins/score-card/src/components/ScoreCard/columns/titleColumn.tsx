@@ -19,7 +19,7 @@ import { Link } from '@material-ui/core';
 import React from 'react';
 import { EntityScoreTableEntry } from '../helpers/getScoreTableEntries';
 import { getWikiUrl } from '../helpers/getWikiUrl';
-import { nameToContrastedColorConverter } from '../../../helpers/nameToContrastedColorConverter';
+import { nameToColorCombinationConverter } from '../../../helpers/nameToColorCombinationConverter';
 
 export function titleColumn(
   wikiLinkTemplate: string,
@@ -40,8 +40,8 @@ export function titleColumn(
               padding: '0px 4px',
               display: 'inline-block',
               marginBottom: '4px',
-              color: nameToContrastedColorConverter(entityScoreEntry.titleLabelColor).foreground,
-              backgroundColor: nameToContrastedColorConverter(entityScoreEntry.titleLabelColor).background
+              color: nameToColorCombinationConverter(entityScoreEntry.titleLabelColor).foreground,
+              backgroundColor: nameToColorCombinationConverter(entityScoreEntry.titleLabelColor).background
             }}>
                 {entityScoreEntry.titleLabel} 
             </span><br/>

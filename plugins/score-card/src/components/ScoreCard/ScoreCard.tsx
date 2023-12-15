@@ -104,7 +104,8 @@ export const ScoreCard = ({
   let gateLabel = 'Not computed';
   const gateStyle = {
     margin: 0,
-    backgroundColor: scoreToColorConverter(data?.scoreSuccess),
+    backgroundColor: scoreToColorConverter(data?.scoreSuccess).background,
+    color: scoreToColorConverter(data?.scoreSuccess).foreground,
   };
   if (data?.scorePercent || data?.scorePercent === 0) {
     const label = data?.scoreLabel ?? `${data.scorePercent} %`;

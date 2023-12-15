@@ -31,6 +31,15 @@ export interface Config {
      */
     fetchAllEntities?: string;
     /**
+     * Provides extra color combinations, possibly overriding existing ones (ex score-failure, score-success)
+     * Format should be: <color-name> <foreground> <background> (one combination per line)
+     * Example: 
+     *  score-failure #ff0000aa #00000022
+     *  score-almost-failure #ff0000aa #00000022
+     * @visibility frontend
+     */
+    colorCombinations?: string,
+    /**
      * The template for the link to the wiki, e.g. "https://TBD/XXX/_wiki/wikis/XXX.wiki/{id}"
      * @visibility frontend
      */

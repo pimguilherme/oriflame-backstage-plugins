@@ -136,7 +136,10 @@ export const ScoreTable = ({ title, scores }: ScoreTableProps) => {
             margin: 0,
             backgroundColor: scoreToColorConverter(
               currentScoreEntry?.scoreSuccess,
-            ),
+            ).background,
+            color: scoreToColorConverter(
+              currentScoreEntry?.scoreSuccess,
+            ).foreground,
             minWidth: '4rem',
           };
           const label = currentScoreEntry?.scoreLabel ?? `${currentScoreEntry?.scorePercent} %`;
@@ -158,7 +161,8 @@ export const ScoreTable = ({ title, scores }: ScoreTableProps) => {
     render: entityScoreEntry => {
       const chipStyle: React.CSSProperties = {
         margin: 0,
-        backgroundColor: scoreToColorConverter(entityScoreEntry?.scoreSuccess),
+        backgroundColor: scoreToColorConverter(entityScoreEntry?.scoreSuccess).background,
+        color: scoreToColorConverter(entityScoreEntry?.scoreSuccess).foreground,
         float: 'right',
         minWidth: '4rem',
       };

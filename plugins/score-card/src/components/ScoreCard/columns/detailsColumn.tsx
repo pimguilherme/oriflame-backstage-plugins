@@ -17,7 +17,7 @@
 import { MarkdownContent, TableColumn } from '@backstage/core-components';
 import React from 'react';
 import { EntityScoreTableEntry } from '../helpers/getScoreTableEntries';
-import { nameToContrastedColorConverter } from '../../../helpers/nameToContrastedColorConverter';
+import { nameToColorCombinationConverter } from '../../../helpers/nameToColorCombinationConverter';
 
 export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
   title: 'Details',
@@ -28,14 +28,14 @@ export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
     const hints = scoreHints ?? entityScoreEntry.scoreHints;
     return (
       <div>
-        <MarkdownContent content={entityScoreEntry.details} />
+        <MarkdownContent dialect='gfm' content={entityScoreEntry.details} />
         {
           entityScoreEntry.extraDetails
             ? <div style={{
               marginTop: '10px',
               padding: '1px 8px',
-              color: nameToContrastedColorConverter(entityScoreEntry.extraDetailsColor ?? entityScoreEntry.scoreSuccess).foreground,
-              backgroundColor: nameToContrastedColorConverter(entityScoreEntry.extraDetailsColor ?? entityScoreEntry.scoreSuccess).background,
+              color: nameToColorCombinationConverter(entityScoreEntry.extraDetailsColor ?? `extra-details-${entityScoreEntry.scoreSuccess}`).foreground,
+              backgroundColor: nameToColorCombinationConverter(entityScoreEntry.extraDetailsColor ?? `extra-details-${entityScoreEntry.scoreSuccess}`).background,
               fontStyle: 'italic'
             }}>
               <MarkdownContent content={entityScoreEntry.extraDetails} />

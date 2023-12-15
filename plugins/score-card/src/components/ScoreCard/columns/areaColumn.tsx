@@ -38,7 +38,8 @@ export function areaColumn(
         const areaGateStyle: React.CSSProperties = {
           marginTop: '0.5rem',
           marginRight: '1rem',
-          backgroundColor: scoreToColorConverter(area?.scoreSuccess),
+          backgroundColor: scoreToColorConverter(area?.scoreSuccess).background,
+          color: scoreToColorConverter(area?.scoreSuccess).foreground,
           float: 'right',
           minWidth: '4rem',
         };

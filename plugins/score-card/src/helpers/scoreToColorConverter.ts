@@ -13,29 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createTheme } from '@material-ui/core/styles';
 import { ScoreSuccessEnum } from '../api';
+import { ColorCombination, nameToColorCombinationConverter } from './nameToColorCombinationConverter';
 
 export const scoreToColorConverter = (
   scoreSuccess: ScoreSuccessEnum | undefined,
-): string => {
-  const theme = createTheme();
+): ColorCombination => {
   if (typeof scoreSuccess === 'undefined') {
-    return theme.palette.grey[500];
+    return nameToColorCombinationConverter(`score-unknown`);
   }
   switch (scoreSuccess) {
-    // see palette https://coolors.co/72af50-acbf8c-e2e8b3-ffc055-eb6f35
     case ScoreSuccessEnum.Success:
-      return 'rgb(114, 175, 80)';
     case ScoreSuccessEnum.AlmostSuccess:
-      return 'rgb(172, 191, 140)';
     case ScoreSuccessEnum.Partial:
-      return 'rgb(226, 232, 179)';
     case ScoreSuccessEnum.AlmostFailure:
-      return 'rgb(255, 192, 85)';
     case ScoreSuccessEnum.Failure:
-      return 'rgb(235, 111, 53)';
+      return nameToColorCombinationConverter(`score-${scoreSuccess}`);
     default:
-      return theme.palette.grey[500];
+      return nameToColorCombinationConverter(`score-unknown`);
   }
 };

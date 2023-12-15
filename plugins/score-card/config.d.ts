@@ -25,6 +25,12 @@ export interface Config {
      */
     jsonDataUrl?: string;
     /**
+     * Whether we should fetch all entites instead of filtering by the entity names
+     * Will still respect the entityKindFilter given to the ScoreBoardPage component
+     * @visibility frontend
+     */
+    fetchAllEntities?: string;
+    /**
      * The template for the link to the wiki, e.g. "https://TBD/XXX/_wiki/wikis/XXX.wiki/{id}"
      * @visibility frontend
      */

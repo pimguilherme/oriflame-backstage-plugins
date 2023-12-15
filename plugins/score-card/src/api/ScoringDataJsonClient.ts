@@ -102,11 +102,11 @@ export class ScoringDataJsonClient implements ScoringDataApi {
     }, new Set<string>);
     
     const fetchAllEntities = this.configApi.getOptionalBoolean('scorecards.fetchAllEntities') ?? false
-    const response = await this.catalogApi.getEntities({
-      filter: fetchAllEntities ? undefined:  {
+        const response = await this.catalogApi.getEntities({
+      filter: fetchAllEntities ? (entityKindFilter ? {kind: entityKindFilter} : {}):  {
         'metadata.name': Array.from(entity_names)
        },
-      fields: ['kind', 'metadata.name', 'spec.owner', 'relations'],
+      fields: ['kind', 'metadata.name', 'metadata.namespace', 'spec.owner', 'relations'],
     });
     const entities: Entity[] = fetchAllEntities
       ? response.items.filter(i => entity_names.has(i.metadata.name))
@@ -138,14 +138,17 @@ export class ScoringDataJsonClient implements ScoringDataApi {
     }
 
     const catalogEntity = entities
-      ? entities.find(entity => entity.metadata.name === score.entityRef?.name)
-      : undefined;
+      ? entities.find(entity => 
+          entity.metadata.name === score.entityRef?.name 
+          && (!score.entityRef?.kind || entity.kind.toLowerCase() === score.entityRef?.kind.toLowerCase())
+          && (!score.entityRef?.namespace || (entity.metadata.namespace || 'default').toLowerCase() == score.entityRef?.namespace.toLowerCase())
+      ) : undefined;
 
     const owner = catalogEntity?.relations?.find(
       r => r.type === RELATION_OWNED_BY,
     )?.targetRef;
 
-    let reviewer = undefined;
+    let reviewer: CompoundEntityRef | undefined = undefined;
     if (score.scoringReviewer && !(score.scoringReviewer as CompoundEntityRef)?.name) {
       reviewer = { name: score.scoringReviewer as string, kind: 'User', namespace: 'default' };
     } else if ((score.scoringReviewer as CompoundEntityRef)?.name) {

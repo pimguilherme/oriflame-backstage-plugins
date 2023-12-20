@@ -27,7 +27,7 @@ export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
     const scoreHints = (entityScoreEntry.scoreHints as string[])?.join?.(', ');
     const hints = scoreHints ?? entityScoreEntry.scoreHints;
     return (
-      <div>
+      <div style={{lineHeight: '1.5rem'}}>
         <MarkdownContent dialect='gfm' linkTarget="_blank" content={entityScoreEntry.details} />
         {
           entityScoreEntry.extraDetails

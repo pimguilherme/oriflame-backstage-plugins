@@ -28,7 +28,7 @@ export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
     const hints = scoreHints ?? entityScoreEntry.scoreHints;
     return (
       <div>
-        <MarkdownContent dialect='gfm' content={entityScoreEntry.details} />
+        <MarkdownContent dialect='gfm' linkTarget="_blank" content={entityScoreEntry.details} />
         {
           entityScoreEntry.extraDetails
             ? <div style={{
@@ -38,7 +38,7 @@ export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
               backgroundColor: nameToColorCombinationConverter(entityScoreEntry.extraDetailsColor ?? `extra-details-${entityScoreEntry.scoreSuccess}`).background,
               fontStyle: 'italic'
             }}>
-              <MarkdownContent content={entityScoreEntry.extraDetails} />
+              <MarkdownContent content={entityScoreEntry.extraDetails} linkTarget="_blank" />
             </div>
             : null
 

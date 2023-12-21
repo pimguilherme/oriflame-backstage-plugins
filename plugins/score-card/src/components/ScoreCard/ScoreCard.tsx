@@ -85,8 +85,12 @@ const useScoringDataLoader = () => {
 };
 
 export const ScoreCard = ({
+  title,
+  tableTitle,
   variant = 'gridItem',
 }: {
+  title?: string;
+  tableTitle?: string;
   entity?: Entity;
   variant?: InfoCardVariants;
 }) => {
@@ -125,7 +129,7 @@ export const ScoreCard = ({
 
   return (
     <InfoCard
-      title="Scoring"
+      title={title ?? "Scoring"}
       variant={variant}
       headerProps={{
         action: qualityBadge,
@@ -161,7 +165,7 @@ export const ScoreCard = ({
             spacing={0}
           >
             <Table<EntityScoreTableEntry>
-              title="Score of each requirement"
+              title={tableTitle ?? "Score of each requirement"}
               options={{
                 search: true,
                 paging: false,

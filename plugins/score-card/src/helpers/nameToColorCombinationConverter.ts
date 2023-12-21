@@ -13,7 +13,7 @@ const defaultColorCombinations: { [name: string]: string[] } = {
   "extra-details-failure": ["#741f1f", "#ffe8e8"],
   "extra-details-almost-failure": ["#741f1f", "#ffe8e8"],
   "extra-details-partial": ["#741f1f", "#ffe8e8"],
-  "extra-details-almost-success": ["#0f4a0f", "#72af5026"],
+  "extra-details-almost-success": ["#741f1f", "#ffe8e8"],
   "extra-details-success": ["#0f4a0f", "#72af5026"],
   "extra-details-unknown": ["#555555", "#CCCCCC"],
   // Score colors

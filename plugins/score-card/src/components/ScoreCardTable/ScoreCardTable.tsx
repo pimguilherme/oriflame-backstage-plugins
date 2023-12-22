@@ -115,7 +115,24 @@ export const ScoreTable = ({ title, scores }: ScoreTableProps) => {
         return areas;
       areas.push(area.title);
       columns.push({
-        title: area.title,
+        title: (
+          <div style={{ textAlign: 'center', marginLeft: '18px' }}> {/* marginLeft is to center properly considering the sort icon on the right :) */}
+            {area.title}
+
+            {
+              area.scoreWeight && <div style={{
+                opacity: '0.8',
+                fontWeight: 'normal',
+                fontSize: '12px',
+                height: 'auto',
+                marginTop: '4px',
+                fontVariant: 'small-caps'
+              }}>
+                {area.scoreWeight}
+              </div>
+            }
+          </div>
+        ),
         field: 'n/a',
         customSort: (d1, d2) => {
           const d1ScoreEntry = d1?.areaScores
@@ -128,6 +145,7 @@ export const ScoreTable = ({ title, scores }: ScoreTableProps) => {
           if (!d2ScoreEntry || d2ScoreEntry < d1ScoreEntry) return 1;
           return 0;
         },
+        align: 'center',
         render: entityScoreEntry => {
           const currentScoreEntry = entityScoreEntry?.areaScores
             ? entityScoreEntry.areaScores.find(a => a.title === area.title)

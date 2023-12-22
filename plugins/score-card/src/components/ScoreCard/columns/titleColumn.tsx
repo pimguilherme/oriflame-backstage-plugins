@@ -31,39 +31,56 @@ export function titleColumn(
     width: '1%',
     render: entityScoreEntry => {
       const wikiUrl = getWikiUrl(wikiLinkTemplate, entityScoreEntry);
-      const title = (
-        entityScoreEntry.titleLabel ? 
-          <>
-            <span style={{ 
+
+      return (
+        <>
+
+          {entityScoreEntry.titleLabel && (<>
+            <span style={{
               fontSize: '12px',
-              borderRadius: '4px', 
-              padding: '0px 4px',
+              borderRadius: '4px',
+              padding: '4px 4px',
               display: 'inline-block',
               marginBottom: '4px',
               color: nameToColorCombinationConverter(entityScoreEntry.titleLabelColor).foreground,
               backgroundColor: nameToColorCombinationConverter(entityScoreEntry.titleLabelColor).background
             }}>
-                {entityScoreEntry.titleLabel} 
-            </span><br/>
-            {entityScoreEntry.title}
-          </>
-          : <>{entityScoreEntry.title}</>
-      );
+              {entityScoreEntry.titleLabel}
+            </span><br />
+          </>)
+          }
 
-      return (<span style={{ lineHeight: '20px' }}>
-          {wikiUrl ? (
-          <Link
-            href={wikiUrl}
-            target="_blank"
-            data-id={entityScoreEntry.id}
-            >
-            {title}
-          </Link>
-        ) : (
-          <>{title}</>
-        )}
-          {entityScoreEntry.isOptional ? ' (Optional)' : null}
-        </span>
+          <span style={{ lineHeight: '20px' }}>
+            {wikiUrl ? (
+              <Link
+                href={wikiUrl}
+                target="_blank"
+                data-id={entityScoreEntry.id}
+              >
+                {entityScoreEntry.title}
+              </Link>
+            ) : (
+              <>{entityScoreEntry.title}</>
+            )}
+            {entityScoreEntry.isOptional ? ' (Optional)' : null}
+          </span>
+
+          {
+            entityScoreEntry.scoreWeight && (<>
+              <br />
+              <span style={{
+                display: 'inline-block',
+                opacity: '0.8',
+                fontSize: '10px',
+                height: 'auto',
+                marginTop: '10px',
+                fontVariant: 'small-caps'
+              }}>
+                {entityScoreEntry.scoreWeight}
+              </span>
+            </>)
+          }
+        </>
       )
     },
   };

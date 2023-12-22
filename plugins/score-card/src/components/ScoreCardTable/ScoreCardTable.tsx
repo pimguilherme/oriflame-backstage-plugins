@@ -45,11 +45,12 @@ const useScoringAllDataLoader = (entityKindFilter?: string[]) => {
 
 type ScoreTableProps = {
   title?: string;
+  excludedColumns?: string[]; // List of columns that should not be shown
   scores: EntityScoreExtended[];
 };
 
-export const ScoreTable = ({ title, scores }: ScoreTableProps) => {
-  const columns: TableColumn<EntityScoreExtended>[] = [
+export const ScoreTable = ({ title, scores, excludedColumns }: ScoreTableProps) => {
+  let columns: TableColumn<EntityScoreExtended>[] = [
     {
       title: 'Name',
       field: 'entityRef.name',
@@ -191,6 +192,10 @@ export const ScoreTable = ({ title, scores }: ScoreTableProps) => {
     },
   });
 
+  if (excludedColumns) {
+    columns = columns.filter(c => c.title && excludedColumns.indexOf(c.title!.toString().toLocaleLowerCase()) === -1)
+  }
+
   // in case we have less then 10 entities let's show at least 10 rows
   const minDefaultPageSizeOption = scores.length >= 10 ? scores.length : 10;
   // so in case we have less then 100 entities we want to see them all in one page after load
@@ -230,8 +235,9 @@ export const ScoreTable = ({ title, scores }: ScoreTableProps) => {
 type ScoreCardTableProps = {
   title?: string;
   entityKindFilter?: string[];
+  excludedColumns?: string[];
 };
-export const ScoreCardTable = ({title, entityKindFilter}: ScoreCardTableProps) => {
+export const ScoreCardTable = ({title, entityKindFilter, excludedColumns}: ScoreCardTableProps) => {
   const { loading, error, value: data } = useScoringAllDataLoader(entityKindFilter);
 
   if (loading) {
@@ -240,5 +246,5 @@ export const ScoreCardTable = ({title, entityKindFilter}: ScoreCardTableProps) =
     return getWarningPanel(error);
   }
 
-  return <ScoreTable title={title}  scores={data || []} />;
+  return <ScoreTable excludedColumns={excludedColumns} title={title}  scores={data || []} />;
 };

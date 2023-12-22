@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { TableColumn } from '@backstage/core-components';
+import { MarkdownContent, TableColumn } from '@backstage/core-components';
 import { Link } from '@material-ui/core';
 import React from 'react';
 import { EntityScoreTableEntry } from '../helpers/getScoreTableEntries';
@@ -57,10 +57,10 @@ export function titleColumn(
                 target="_blank"
                 data-id={entityScoreEntry.id}
               >
-                {entityScoreEntry.title}
+                <MarkdownContent content={entityScoreEntry.title} />
               </Link>
             ) : (
-              <>{entityScoreEntry.title}</>
+              <MarkdownContent content={entityScoreEntry.title} />
             )}
             {entityScoreEntry.isOptional ? ' (Optional)' : null}
           </span>

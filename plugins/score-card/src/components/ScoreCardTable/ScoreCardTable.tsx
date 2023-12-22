@@ -45,11 +45,12 @@ const useScoringAllDataLoader = (entityKindFilter?: string[]) => {
 
 type ScoreTableProps = {
   title?: string;
+  entityLinkPath?: string;
   excludedColumns?: string[]; // List of columns that should not be shown
   scores: EntityScoreExtended[];
 };
 
-export const ScoreTable = ({ title, scores, excludedColumns }: ScoreTableProps) => {
+export const ScoreTable = ({ title, scores, excludedColumns, entityLinkPath }: ScoreTableProps) => {
   let columns: TableColumn<EntityScoreExtended>[] = [
     {
       title: 'Name',
@@ -60,7 +61,7 @@ export const ScoreTable = ({ title, scores, excludedColumns }: ScoreTableProps) 
         }
 
         return (<Link
-          to={`/catalog/${entityScore.entityRef.namespace ?? DEFAULT_NAMESPACE}/${entityScore.entityRef.kind}/${entityScore.entityRef.name}/score`}
+          to={`/catalog/${entityScore.entityRef.namespace ?? DEFAULT_NAMESPACE}/${entityScore.entityRef.kind}/${entityScore.entityRef.name}/${entityLinkPath ?? 'score'}`}
           data-id={entityScore.entityRef.name}
           >
             {entityScore.entityRef.name}
@@ -234,10 +235,11 @@ export const ScoreTable = ({ title, scores, excludedColumns }: ScoreTableProps) 
 
 type ScoreCardTableProps = {
   title?: string;
+  entityLinkPath?: string;
   entityKindFilter?: string[];
   excludedColumns?: string[];
 };
-export const ScoreCardTable = ({title, entityKindFilter, excludedColumns}: ScoreCardTableProps) => {
+export const ScoreCardTable = ({title, entityKindFilter, excludedColumns, entityLinkPath}: ScoreCardTableProps) => {
   const { loading, error, value: data } = useScoringAllDataLoader(entityKindFilter);
 
   if (loading) {
@@ -246,5 +248,11 @@ export const ScoreCardTable = ({title, entityKindFilter, excludedColumns}: Score
     return getWarningPanel(error);
   }
 
-  return <ScoreTable excludedColumns={excludedColumns} title={title}  scores={data || []} />;
+  return (
+      <ScoreTable 
+            excludedColumns={excludedColumns} 
+            entityLinkPath={entityLinkPath}
+            title={title}  
+            scores={data || []} />
+  );
 };

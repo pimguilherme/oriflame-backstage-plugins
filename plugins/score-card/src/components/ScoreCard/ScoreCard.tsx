@@ -87,11 +87,19 @@ const useScoringDataLoader = () => {
 export const ScoreCard = ({
   title,
   tableTitle,
+  showError = true,
+  emptyElement = <EmptyState
+    missing="info"
+    title="No information to display"
+    description="There is no data available for this entity"
+  />,
   variant = 'gridItem',
 }: {
   title?: string;
   tableTitle?: string;
   entity?: Entity;
+  emptyElement?: JSX.Element;
+  showError?: boolean;
   variant?: InfoCardVariants;
 }) => {
   // let's load the entity data from url defined in config etc
@@ -141,15 +149,11 @@ export const ScoreCard = ({
     >
       {loading && <Progress />}
 
-      {error && getWarningPanel(error)}
+      {showError && error && getWarningPanel(error)}
 
       {!loading && !data && (
         <div data-testid="score-card-no-data">
-          <EmptyState
-            missing="info"
-            title="No information to display"
-            description="There is no data available for this entity"
-          />
+          {emptyElement}
         </div>
       )}
 

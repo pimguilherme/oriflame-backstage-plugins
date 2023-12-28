@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { MarkdownContent, TableColumn } from '@backstage/core-components';
+import { TableColumn } from '@backstage/core-components';
 import { Link } from '@material-ui/core';
 import React from 'react';
 import { EntityScoreTableEntry } from '../helpers/getScoreTableEntries';

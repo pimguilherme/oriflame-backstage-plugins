@@ -57,10 +57,10 @@ export function titleColumn(
                 target="_blank"
                 data-id={entityScoreEntry.id}
               >
-                <MarkdownContent content={entityScoreEntry.title} />
+                {entityScoreEntry.title}
               </Link>
             ) : (
-              <MarkdownContent content={entityScoreEntry.title} />
+              entityScoreEntry.title
             )}
             {entityScoreEntry.isOptional ? ' (Optional)' : null}
           </span>

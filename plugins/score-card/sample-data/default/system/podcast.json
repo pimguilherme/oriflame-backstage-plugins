@@ -30,7 +30,8 @@
           "id": 2159,
           "title": "Identity Management",
           "scoreSuccess": "unknown",
-          "details": "..."
+          "details": "...",
+          "extraDetails": "Could not find any credentials for this project."
         },
         {
           "id": 2163,
@@ -42,9 +43,12 @@
         {
           "id": 2158,
           "title": "Https",
-          "scoreSuccess": "unknown",
-          "isOptional": true,
-          "details": "..."
+          "titleLabel": "NEW",
+          "titleLabelColor": "periwinkle",
+          "scorePercent": 0,
+          "scoreSuccess": "failure",
+          "details": "The application must use safe HTTPS configurations",
+          "extraDetails": "This application is not using HTTPS according to internal scans.\n\nPlease make sure you comply with:\n- Cyphers X Y Z are being used\n- TLS 1.3+ is being used"
         },
         {
           "id": 2153,
@@ -52,7 +56,9 @@
           "scorePercent": 80,
           "scoreLabel": "B",
           "scoreSuccess": ["AppInsights configured", "Dashboard present"],
-          "details": "Lorem ipsum for **AppInsights** sit amet, consectetuer adipiscing elit. Aliquam erat volutpat. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Nullam at arcu a est sollicitudin euismod. Aliquam id dolor. Fusce nibh. Duis sapien nunc, commodo et, interdum suscipit, sollicitudin et, dolor. Etiam sapien elit, consequat eget, tristique non, venenatis quis, ante. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris elementum mauris vitae tortor. Maecenas libero. Duis pulvinar. Pellentesque pretium lectus id turpis. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Etiam commodo dui eget wisi. Nunc dapibus tortor vel mi dapibus sollicitudin. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Duis risus."
+          "details": "Lorem ipsum for **AppInsights** sit amet, consectetuer adipiscing elit. Aliquam erat volutpat. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Nullam at arcu a est sollicitudin euismod. Aliquam id dolor. Fusce nibh. Duis sapien nunc, commodo et, interdum suscipit, sollicitudin et, dolor. Etiam sapien elit, consequat eget, tristique non, venenatis quis, ante. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris elementum mauris vitae tortor. Maecenas libero. Duis pulvinar. Pellentesque pretium lectus id turpis. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Etiam commodo dui eget wisi. Nunc dapibus tortor vel mi dapibus sollicitudin. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Duis risus.",
+          "extraDetails": "It has been found that this application does not conform fully to the internal application specs.",
+          "extraDetailsColor": "#555555 #f6f6f6"
         }
       ]
     },
@@ -298,7 +304,7 @@
     },
     {
       "id": 4328,
-      "title": "Security",
+      "title": "Security", 
       "scorePercent": 10,
       "scoreLabel": "F",
       "scoreSuccess": "failure",

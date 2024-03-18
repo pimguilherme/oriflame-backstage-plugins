@@ -85,9 +85,21 @@ const useScoringDataLoader = () => {
 };
 
 export const ScoreCard = ({
+  title,
+  tableTitle,
+  showError = true,
+  emptyElement = <EmptyState
+    missing="info"
+    title="No information to display"
+    description="There is no data available for this entity"
+  />,
   variant = 'gridItem',
 }: {
+  title?: string;
+  tableTitle?: string;
   entity?: Entity;
+  emptyElement?: JSX.Element;
+  showError?: boolean;
   variant?: InfoCardVariants;
 }) => {
   // let's load the entity data from url defined in config etc
@@ -104,7 +116,8 @@ export const ScoreCard = ({
   let gateLabel = 'Not computed';
   const gateStyle = {
     margin: 0,
-    backgroundColor: scoreToColorConverter(data?.scoreSuccess),
+    backgroundColor: scoreToColorConverter(data?.scoreSuccess).background,
+    color: scoreToColorConverter(data?.scoreSuccess).foreground,
   };
   if (data?.scorePercent || data?.scorePercent === 0) {
     const label = data?.scoreLabel ?? `${data.scorePercent} %`;
@@ -124,7 +137,7 @@ export const ScoreCard = ({
 
   return (
     <InfoCard
-      title="Scoring"
+      title={title ?? "Scoring"}
       variant={variant}
       headerProps={{
         action: qualityBadge,
@@ -136,15 +149,11 @@ export const ScoreCard = ({
     >
       {loading && <Progress />}
 
-      {error && getWarningPanel(error)}
+      {showError && error && getWarningPanel(error)}
 
       {!loading && !data && (
         <div data-testid="score-card-no-data">
-          <EmptyState
-            missing="info"
-            title="No information to display"
-            description="There is no data available for this entity"
-          />
+          {emptyElement}
         </div>
       )}
 
@@ -160,7 +169,7 @@ export const ScoreCard = ({
             spacing={0}
           >
             <Table<EntityScoreTableEntry>
-              title="Score of each requirement"
+              title={tableTitle ?? "Score of each requirement"}
               options={{
                 search: true,
                 paging: false,

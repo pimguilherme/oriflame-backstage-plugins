@@ -38,19 +38,33 @@ export function areaColumn(
         const areaGateStyle: React.CSSProperties = {
           marginTop: '0.5rem',
           marginRight: '1rem',
-          backgroundColor: scoreToColorConverter(area?.scoreSuccess),
+          backgroundColor: scoreToColorConverter(area?.scoreSuccess).background,
+          color: scoreToColorConverter(area?.scoreSuccess).foreground,
           float: 'right',
           minWidth: '4rem',
         };
         const areaGateLabel = area?.scoreLabel ?? `${area?.scorePercent} %`;
         return (
           <span>
-            <>
-            {data}
+            <span style={{
+              verticalAlign: 'middle'
+            }}>
+              {data}
+            </span>
+            {
+              area?.scoreWeight && <span style={{
+                opacity: '0.8',
+                fontSize: '10px',
+                height: 'auto',
+                marginLeft: '0.5rem',
+                fontVariant: 'small-caps',
+                verticalAlign: 'middle'
+              }}>{area?.scoreWeight}</span>
+            }
+
             <Chip label={areaGateLabel} style={areaGateStyle} />
-            </>
           </span>
-          );
+        );
       }
       return <Link>{data.area}</Link>;
     },

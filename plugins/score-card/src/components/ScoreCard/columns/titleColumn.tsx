@@ -19,6 +19,7 @@ import { Link } from '@material-ui/core';
 import React from 'react';
 import { EntityScoreTableEntry } from '../helpers/getScoreTableEntries';
 import { getWikiUrl } from '../helpers/getWikiUrl';
+import { nameToColorCombinationConverter } from '../../../helpers/nameToColorCombinationConverter';
 
 export function titleColumn(
   wikiLinkTemplate: string,
@@ -30,20 +31,56 @@ export function titleColumn(
     width: '1%',
     render: entityScoreEntry => {
       const wikiUrl = getWikiUrl(wikiLinkTemplate, entityScoreEntry);
-      return (<span>
-          {wikiUrl ? (
-          <Link
-            href={wikiUrl}
-            target="_blank"
-            data-id={entityScoreEntry.id}
-            >
-            {entityScoreEntry.title}
-          </Link>
-        ) : (
-          <>{entityScoreEntry.title}</>
-        )}
-          {entityScoreEntry.isOptional ? ' (Optional)' : null}
-        </span>
+
+      return (
+        <>
+
+          {entityScoreEntry.titleLabel && (<>
+            <span style={{
+              fontSize: '12px',
+              borderRadius: '4px',
+              padding: '4px 4px',
+              display: 'inline-block',
+              marginBottom: '4px',
+              color: nameToColorCombinationConverter(entityScoreEntry.titleLabelColor).foreground,
+              backgroundColor: nameToColorCombinationConverter(entityScoreEntry.titleLabelColor).background
+            }}>
+              {entityScoreEntry.titleLabel}
+            </span><br />
+          </>)
+          }
+
+          <span style={{ lineHeight: '20px' }}>
+            {wikiUrl ? (
+              <Link
+                href={wikiUrl}
+                target="_blank"
+                data-id={entityScoreEntry.id}
+              >
+                {entityScoreEntry.title}
+              </Link>
+            ) : (
+              entityScoreEntry.title
+            )}
+            {entityScoreEntry.isOptional ? ' (Optional)' : null}
+          </span>
+
+          {
+            entityScoreEntry.scoreWeight && (<>
+              <br />
+              <span style={{
+                display: 'inline-block',
+                opacity: '0.8',
+                fontSize: '10px',
+                height: 'auto',
+                marginTop: '10px',
+                fontVariant: 'small-caps'
+              }}>
+                {entityScoreEntry.scoreWeight}
+              </span>
+            </>)
+          }
+        </>
       )
     },
   };

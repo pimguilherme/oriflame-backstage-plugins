@@ -29,7 +29,8 @@ export const scorePercentColumn: TableColumn<EntityScoreTableEntry> = {
   render: entityScoreEntry => {
     const chipStyle: React.CSSProperties = {
       margin: 0,
-      backgroundColor: scoreToColorConverter(entityScoreEntry?.scoreSuccess),
+      backgroundColor: scoreToColorConverter(entityScoreEntry?.scoreSuccess).background,
+      color: scoreToColorConverter(entityScoreEntry?.scoreSuccess).foreground,
       minWidth: '4rem',
     };
     const label = entityScoreEntry?.scoreLabel ?? `${entityScoreEntry.scorePercent} %`;

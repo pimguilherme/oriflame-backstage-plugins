@@ -17,6 +17,7 @@
 import { MarkdownContent, TableColumn } from '@backstage/core-components';
 import React from 'react';
 import { EntityScoreTableEntry } from '../helpers/getScoreTableEntries';
+import { nameToColorCombinationConverter } from '../../../helpers/nameToColorCombinationConverter';
 
 export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
   title: 'Details',
@@ -26,8 +27,22 @@ export const detailsColumn: TableColumn<EntityScoreTableEntry> = {
     const scoreHints = (entityScoreEntry.scoreHints as string[])?.join?.(', ');
     const hints = scoreHints ?? entityScoreEntry.scoreHints;
     return (
-      <div>
-        <MarkdownContent content={entityScoreEntry.details} />
+      <div style={{lineHeight: '1.2rem'}}>
+        <MarkdownContent dialect='gfm' linkTarget="_blank" content={entityScoreEntry.details} />
+        {
+          entityScoreEntry.extraDetails
+            ? <div style={{
+              marginTop: '10px',
+              padding: '1px 8px',
+              color: nameToColorCombinationConverter(entityScoreEntry.extraDetailsColor ?? `extra-details-${entityScoreEntry.scoreSuccess}`).foreground,
+              backgroundColor: nameToColorCombinationConverter(entityScoreEntry.extraDetailsColor ?? `extra-details-${entityScoreEntry.scoreSuccess}`).background,
+              fontStyle: 'italic'
+            }}>
+              <MarkdownContent content={entityScoreEntry.extraDetails} linkTarget="_blank" />
+            </div>
+            : null
+
+        }
         {hints ? <em>hints: {hints}</em> : null}
       </div>
     );
